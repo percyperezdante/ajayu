@@ -16,7 +16,7 @@ A refernece for how to install Go and packer can be found in [here](https://perc
 For example, lets take the case of oracle_linux_6.
 
 ```bash
-$ packer build <NAME_TEMPLATE>.json
+$ packer build oracle_linux_6_10.json
 ```
 
 This should generate a packer_cache and and oracle-linux-6-x86_64_packer-6.10-SNAPSHOT.box, as below.
@@ -30,15 +30,27 @@ drwxrwxr-x 3 percy percy       4096 Mar 17 16:14 packer_cache
 -rw-rw-r-- 1 percy percy 1154884632 Mar 17 16:41 oracle-linux-6-x86_64_packer-6.10-SNAPSHOT.box
 ```
 
-The .box is the images we are going to use with Vagrant for this example.
+The .box is the image we are going to use with Vagrant for this example.
 
 # How to use built images.
 
 Talking the example of oracle_linux_6, you can add this box to your list using Vagrant
 
 ```bash
-$ vagrant box add -name MY_OL6 oracle-linux-6-x86_64_packer-6.10-SNAPSHOT.box
+$ vagrant box add --name MY_OL6 oracle-linux-6-x86_64_packer-6.10-SNAPSHOT.box
 $ vagrant box list
 ```
+
+Now we create a Vagrant file with this image name
+
+```bash
+$ mkdir test
+$ cd test
+$ vagrant init MY_OL6
+$ vagrant up
+$ vagrant ssh
+```
+
+
 
 
