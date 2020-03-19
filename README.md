@@ -19,7 +19,7 @@ For example, lets take the case of oracle_linux_6.
 $ packer build oracle_linux_6_10.json
 ```
 
-This should generate a packer_cache and and oracle-linux-6-x86_64_packer-6.10-SNAPSHOT.box, as below.
+This should generate a packer_cache and and oracle-linux-6-x86_64_packer-6.10-SNAPSHOT.box, as below. 
 
 ```bash
 drwxr-xr-x 2 percy percy       4096 Mar 17 16:13 scripts
