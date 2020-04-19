@@ -50,7 +50,7 @@ $./start.sh
 To install additional features, you can follow the next steps:
 
 1. Add the name of the new script in the template,jenkinsCapistranoOl6.json. For example if we want to add scripts/additional/install_nginx.sh
-```toml
+```bash
         ...
         {
             "type": "shell",
@@ -64,8 +64,10 @@ To install additional features, you can follow the next steps:
 ```
 
 2. Place the install_nginx.sh inside the script/additional folder
+
 3. Back to the root directory, remove move any .box file already created and build the image again.
-```toml
+
+```bash
 $ rm *.box
 $./start.sh
 
