@@ -27,7 +27,7 @@ $ ./start.sh
 
 The last command may take a while during the first run, but the subsequent runs will be faster as all is cached locally at "packer_cache". 
 
-The result of this command will be the file "jenkinsCapistranoOl6-6.10-SNAPSHOT.box" which is the OL6 image with Jenkins and Capistran 2.5
+The result of this command will be the file "oracle-linux-6-x86_64_packer-6.10-SNAPSHOT.box" which is the OL6 image with Jenkins and Capistran 2
 
 # How to clear packer files
 
@@ -79,7 +79,7 @@ There are many option to use the already built images, but in here we just sugge
 
 ```bash
 $ vagrant box add --name myJenkinsCapv2 oracle-linux-6-x86_64_packer-6.10-SNAPSHOT.box
-$ vagrant add list
+$ vagrant box list
 $ mkdir test
 $ cd test
 $ vagrant init myJenkinsCapv2 
@@ -112,6 +112,35 @@ tester
 The default password for these accounts is 123.
 
 
+# Ajayu from the cloud
+
+You can download this image from Vagrant cloud as following:
+
+1. Create a local folder
+
+```bash
+$ mkdir ajayu
+$ cd ajayu
+```
+
+2. Create a Vagrantfile with the following content
+
+```bash
+Vagrant.configure("2") do |config|
+  config.vm.box = "percyperezd/JenkinsCapistranoV2"
+  config.vm.box_version = "0.0.1"
+  config.vm.network "forwarded_port", guest: 8080, host: 8080
+end
+```
+
+3. Start vagrant
+
+```bash
+$ vagrant status
+$ vagrant up
+```
+
+4. Open ```http://localhost:8080``` from a browser.
 
 # Test artefacts of the image with Kitchen.
 Todo
@@ -121,8 +150,8 @@ Todo
 
 Here some of most relevant link used to compose this template.
 
--[How to install Jenkis](https://www.openprogrammer.info/2015/07/25/how-to-install-jenkins-continuous-integration-on-centos-6-as-service/)
--[How to install Ruby and capistrano](https://gist.github.com/Halleck45/9645694)
--[Jenkins package repository](https://pkg.jenkins.io/redhat-stable/)
--[Capistrano - ruby download](https://rubygems.org/gems/capistrano/versions/2.15.9)
+- [How to install Jenkis](https://www.openprogrammer.info/2015/07/25/how-to-install-jenkins-continuous-integration-on-centos-6-as-service/)
+- [How to install Ruby and capistrano](https://gist.github.com/Halleck45/9645694)
+- [Jenkins package repository](https://pkg.jenkins.io/redhat-stable/)
+- [Capistrano - ruby download](https://rubygems.org/gems/capistrano/versions/2.15.9)
 
