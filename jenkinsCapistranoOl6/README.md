@@ -87,7 +87,7 @@ $ vagrant init myJenkinsCapv2
 2. Add forward port 8080 in your Vagrant init config file.
 Your ./Vagrant file should looks like:
 
-```toml
+```bash
 Vagrant.configure("2") do |config|
   config.vm.box = "myJenkinsCapv2"
   config.vm.box_url = "."
@@ -95,7 +95,7 @@ Vagrant.configure("2") do |config|
 end
 ```
 3. Start your VM
-```toml
+```bash
 $ vagrant up
 $ vagrant ssh
 ```
@@ -104,7 +104,7 @@ $ vagrant ssh
 
 You should be able to see the Login page for Jenkins. The following users are available.
 
-```toml
+```bash
 percy
 tester
 ```
