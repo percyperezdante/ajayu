@@ -1,4 +1,4 @@
-# A brief introduction
+# Jenkins and Capistrano v2 base on OL6
 
 This is a template to build an Oracle Linux 6 (OL6) image with a standalone Jenkins and capistrano 2.5 using Packer.  Note that this template is base on the ```oracle_linux_6``` template that you can find in this repository. 
 
