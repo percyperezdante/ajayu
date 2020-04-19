@@ -116,7 +116,8 @@ The default password for these accounts is 123.
 
 # Ajayu from the cloud
 
-You can download this image from Vagrant cloud as following:
+You can [download this image from Vagrant cloud](https://app.vagrantup.com/percyperezd/boxes/JenkinsCapistranoV2) as following:
+
 
 1. Create a local folder
 
