@@ -145,6 +145,145 @@ $ vagrant up
 
 4. Open ```http://localhost:8080``` from a browser.
 
+# Basic example capistrano
+
+1. Create a free style job
+
+2. In the build section add a "Execute shell" and copy the following
+
+```bash
+echo '''
+server "localhost", :all, {:group => 1}
+''' > servers.cap
+```
+
+3. Add another "Execute shell" and copy the following
+```bash
+echo '''
+
+roles[:all]
+roles[:app]
+
+load :file => "servers.cap"
+
+namespace :deploy do
+    task :default do
+          transaction do
+                on_rollback do
+                  puts "====== ROLLBACK \n\n"
+                end
+				list_packages
+    			check_prereqs
+    			app_deploy
+
+			end
+    end
+
+    task :list_packages do
+      puts "LIST PACKAGES \n\n"
+
+	end
+
+    task :check_prereqs  do
+      puts "CHECK PREREQS \n\n"
+      run "cp /tmp/t /tmp/a"
+
+    end
+
+    task :app_deploy  do
+      puts "APP DEPLOY \n\n"
+    end
+
+    task :rollback_now  do
+      puts "ROLLBACK NOW \n\n"
+    end
+
+end
+
+''' > deploy.cap
+
+```
+
+4.  Execute the capistrano code by addint the following "Execute shell"
+
+```bash
+cap -f deploy.cap deploy
+```
+
+5.  Save and build the job. You should be get the following console output or similar
+
+```bash
+Started by user percy
+Running as SYSTEM
+Building in workspace /app/jenkins/workspace/cap1
+[cap1] $ /bin/sh -xe /tmp/jenkins2219040370945538940.sh
++ echo '
+server "localhost", :all, {:group => 1}
+'
+[cap1] $ /bin/sh -xe /tmp/jenkins4146510438038840631.sh
++ echo '
+
+roles[:all]
+roles[:app]
+
+load :file => "servers.cap"
+
+namespace :deploy do
+    task :default do
+          transaction do
+                on_rollback do
+                  puts "====== ROLLBACK \n\n"
+                end
+				list_packages
+    			check_prereqs
+    			app_deploy
+			end
+    end
+
+    task :list_packages do
+      puts "LIST PACKAGES \n\n"
+
+	end
+
+    task :check_prereqs  do
+      puts "CHECK PREREQS \n\n"
+      run "cp /tmp/t /tmp/a"
+
+    end
+
+    task :app_deploy  do
+      puts "APP DEPLOY \n\n"
+    end
+
+    task :rollback_now  do
+      puts "ROLLBACK NOW \n\n"
+    end
+
+end
+
+'
++ whoami
+jenkins
+[cap1] $ /bin/sh -xe /tmp/jenkins7865738447930265264.sh
++ cap -f deploy.cap deploy
+  * executing `deploy'
+ ** transaction: start
+  * executing `deploy:list_packages'
+LIST PACKAGES
+
+  * executing `deploy:check_prereqs'
+CHECK PREREQS
+
+  * executing "cp /tmp/t /tmp/a"
+    servers: ["localhost"]
+jenkins@localhost's password:*** [deploy] rolling back
+====== ROLLBACK
+
+connection failed for: localhost (Errno::ENOTTY: Inappropriate ioctl for device)
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE
+```
+
 # Test artefacts of the image with Kitchen.
 Todo
 
