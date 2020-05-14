@@ -131,7 +131,7 @@ $ cd ajayu
 ```bash
 Vagrant.configure("2") do |config|
   config.vm.box = "percyperezd/JenkinsCapistranoV2"
-  config.vm.box_version = "0.0.1"
+  config.vm.box_version = "0.0.2"
   config.vm.network "forwarded_port", guest: 8080, host: 8080
 end
 ```
@@ -186,7 +186,7 @@ namespace :deploy do
 
     task :check_prereqs  do
       puts "CHECK PREREQS \n\n"
-      run "cp /tmp/t /tmp/a"
+      run "cp /tmp/t /tmp/a"     # <--- Remove this line to do not rollback
 
     end
 
