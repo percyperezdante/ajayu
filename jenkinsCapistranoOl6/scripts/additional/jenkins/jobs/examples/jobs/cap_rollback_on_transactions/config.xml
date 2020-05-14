@@ -1,0 +1,74 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>This example is to shows how capistrano work when a &quot;on_rollback&quot; is located inside a &quot;transaction&quot;. </description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.plugins.jira.JiraProjectProperty plugin="jira@3.0.7"/>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>set +x
+echo &apos;&apos;&apos;
+server &quot;localhost&quot;, :all, {:group =&gt; 1}
+&apos;&apos;&apos; &gt; servers.cap
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>set +x
+echo &apos;&apos;&apos;
+
+roles[:all]
+roles[:app]
+
+load :file =&gt; &quot;servers.cap&quot;
+
+namespace :deploy do
+    task :default do
+          transaction do
+                on_rollback do
+                  puts &quot;====== ROLLBACK \n\n&quot;
+                end
+				list_packages
+    			check_prereqs
+    			app_deploy
+			end
+    end
+
+    task :list_packages do
+      puts &quot;LIST PACKAGES \n\n&quot;
+
+	end
+
+    task :check_prereqs  do
+      puts &quot;CHECK PREREQS \n\n&quot;
+      run &quot;cp /tmp/t /tmp/a&quot;   ## Remove this line for NON rollback
+    end
+
+    task :app_deploy  do
+      puts &quot;APP DEPLOY \n\n&quot;
+    end
+
+    task :rollback_now  do
+      puts &quot;ROLLBACK NOW \n\n&quot;
+    end
+
+end
+
+&apos;&apos;&apos; &gt; deploy.cap
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>cap -f deploy.cap deploy </command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

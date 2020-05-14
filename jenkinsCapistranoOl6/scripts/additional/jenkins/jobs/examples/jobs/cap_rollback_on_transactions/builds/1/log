@@ -1,0 +1,25 @@
+Started by user [8mha:////4LByVWV/SSdr4vIatVrIsdOMBWbCnJSmotZR+dwcPpGsAAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CJ9oI3JlQDY8eamwAAAAA==[0mpercy
+Running as SYSTEM
+Building in workspace /app/jenkins/workspace/examples/cap_rollback_on_transactions
+[cap_rollback_on_transactions] $ /bin/sh -xe /tmp/jenkins6138985130515760201.sh
++ set +x
+[cap_rollback_on_transactions] $ /bin/sh -xe /tmp/jenkins5248408572542007504.sh
++ set +x
+[cap_rollback_on_transactions] $ /bin/sh -xe /tmp/jenkins2504206098351359670.sh
++ cap -f deploy.cap deploy
+  * executing `deploy'
+ ** transaction: start
+  * executing `deploy:list_packages'
+LIST PACKAGES 
+
+  * executing `deploy:check_prereqs'
+CHECK PREREQS 
+
+  * executing "cp /tmp/t /tmp/a"
+    servers: ["localhost"]
+jenkins@localhost's password:*** [deploy] rolling back
+====== ROLLBACK 
+
+connection failed for: localhost (Errno::ENOTTY: Inappropriate ioctl for device)
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE

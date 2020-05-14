@@ -35,12 +35,16 @@ cp -r /tmp/jenkins/init.groovy.d $MY_JENKINS_HOME/
 cp -r /tmp/jenkins/plugins $MY_JENKINS_HOME/
 cp -r /tmp/jenkins/users $MY_JENKINS_HOME/
 
+# Copy examples into Jenkins jobs space
+cp -r /tmp/jenkins/jobs $MY_JENKINS_HOME/
+
 chown -R jenkins: /app/jenkins
 chkconfig jenkins on
 
 service jenkins restart
-
+sleep 5
 # For some unknown reason a second restart is needed.
+
 service jenkins stop
 service jenkins start
 
