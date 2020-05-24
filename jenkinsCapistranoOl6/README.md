@@ -147,17 +147,38 @@ $ vagrant up
 
 # Basic example capistrano
 
-1. Create a free style job
+1. Deploy a Jenkins node and a deployment host.
 
-2. In the build section add a "Execute shell" and copy the following
+```bash
+$ mkdir myfirstime
+$ cd myfirsttime
+$ git clone https://github.com/percyperezdante/ajayu.git
+$ cd ajayu/jenkinsCapistranoOl6/examples/basic
+$ cat Vagrantfile
+$ vagrant up
+```
+
+NOTE:
+
+This will deploy a Jenkins master and a deployment host (called victim in this example). The deployment host is the host where you can deploy your artifacts using capistrano. 
+
+2. Create a free style job
+
+Open a `http://localhost:8080` in your browser and create a free style job.
+
+NOTE:
+
+You also can use an already created job in the dashboard, called `cap_rollback_on_transactions` in the "Examples for reference" folder.
+
+3. In the build section add a "Execute shell" and copy the following
 
 ```bash
 echo '''
-server "localhost", :all, {:group => 1}
+server "172.10.11.4", :all, {:group => 1}
 ''' > servers.cap
 ```
 
-3. Add another "Execute shell" and copy the following
+4. Add another "Execute shell" and copy the following
 ```bash
 echo '''
 
@@ -186,7 +207,7 @@ namespace :deploy do
 
     task :check_prereqs  do
       puts "CHECK PREREQS \n\n"
-      run "cp /tmp/t /tmp/a"     # <--- Remove this line to do not rollback
+      run "echo 123 > test"     # <--- You can make fail this to trigger the rollback
 
     end
 
@@ -204,67 +225,32 @@ end
 
 ```
 
-4.  Execute the capistrano code by addint the following "Execute shell"
+5.  Execute the capistrano code by addint the following "Execute shell"
 
 ```bash
 cap -f deploy.cap deploy
 ```
 
-5.  Save and build the job. You should be get the following console output or similar
+NOTE:
+```bash
+cap -d -f deploy.cap deploy
+```
+
+You can run debug mode as:
+
+
+6.  Save and build the job. You should be get the following console output or similar
 
 ```bash
-Started by user percy
+
+Started by user unknown or anonymous
 Running as SYSTEM
-Building in workspace /app/jenkins/workspace/cap1
-[cap1] $ /bin/sh -xe /tmp/jenkins2219040370945538940.sh
-+ echo '
-server "localhost", :all, {:group => 1}
-'
-[cap1] $ /bin/sh -xe /tmp/jenkins4146510438038840631.sh
-+ echo '
-
-roles[:all]
-roles[:app]
-
-load :file => "servers.cap"
-
-namespace :deploy do
-    task :default do
-          transaction do
-                on_rollback do
-                  puts "====== ROLLBACK \n\n"
-                end
-				list_packages
-    			check_prereqs
-    			app_deploy
-			end
-    end
-
-    task :list_packages do
-      puts "LIST PACKAGES \n\n"
-
-	end
-
-    task :check_prereqs  do
-      puts "CHECK PREREQS \n\n"
-      run "cp /tmp/t /tmp/a"
-
-    end
-
-    task :app_deploy  do
-      puts "APP DEPLOY \n\n"
-    end
-
-    task :rollback_now  do
-      puts "ROLLBACK NOW \n\n"
-    end
-
-end
-
-'
-+ whoami
-jenkins
-[cap1] $ /bin/sh -xe /tmp/jenkins7865738447930265264.sh
+Building in workspace /app/jenkins/jobs/examples/jobs/cap_rollback_on_transactions/workspace
+[workspace] $ /bin/sh -xe /tmp/jenkins8155165778728912009.sh
++ set +x
+[workspace] $ /bin/sh -xe /tmp/jenkins87502960719498073.sh
++ set +x
+[workspace] $ /bin/sh -xe /tmp/jenkins7686715956820623815.sh
 + cap -f deploy.cap deploy
   * executing `deploy'
  ** transaction: start
@@ -274,15 +260,18 @@ LIST PACKAGES
   * executing `deploy:check_prereqs'
 CHECK PREREQS
 
-  * executing "cp /tmp/t /tmp/a"
-    servers: ["localhost"]
-jenkins@localhost's password:*** [deploy] rolling back
-====== ROLLBACK
+  * executing "echo 123 > test"
+    servers: ["172.10.11.4"]
+    [172.10.11.4] executing command
+    command finished in 164ms
+  * executing `deploy:app_deploy'
+APP DEPLOY
 
-connection failed for: localhost (Errno::ENOTTY: Inappropriate ioctl for device)
-Build step 'Execute shell' marked build as failure
-Finished: FAILURE
+ ** transaction: commit
+Finished: SUCCESS
+
 ```
+
 
 # Test artefacts of the image with Kitchen.
 Todo
