@@ -1,11 +1,11 @@
-Started by user [8mha:////4LByVWV/SSdr4vIatVrIsdOMBWbCnJSmotZR+dwcPpGsAAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CJ9oI3JlQDY8eamwAAAAA==[0mpercy
+Started by user unknown or anonymous
 Running as SYSTEM
-Building in workspace /app/jenkins/workspace/examples/cap_rollback_on_transactions
-[cap_rollback_on_transactions] $ /bin/sh -xe /tmp/jenkins6138985130515760201.sh
+Building in workspace /app/jenkins/jobs/examples/jobs/cap_rollback_on_transactions/workspace
+[workspace] $ /bin/sh -xe /tmp/jenkins8178494920305807043.sh
 + set +x
-[cap_rollback_on_transactions] $ /bin/sh -xe /tmp/jenkins5248408572542007504.sh
+[workspace] $ /bin/sh -xe /tmp/jenkins4678035097299832266.sh
 + set +x
-[cap_rollback_on_transactions] $ /bin/sh -xe /tmp/jenkins2504206098351359670.sh
+[workspace] $ /bin/sh -xe /tmp/jenkins3092395327167674342.sh
 + cap -f deploy.cap deploy
   * executing `deploy'
  ** transaction: start
@@ -15,11 +15,12 @@ LIST PACKAGES
   * executing `deploy:check_prereqs'
 CHECK PREREQS 
 
-  * executing "cp /tmp/t /tmp/a"
-    servers: ["localhost"]
-jenkins@localhost's password:*** [deploy] rolling back
-====== ROLLBACK 
+  * executing "echo test > test"
+    servers: ["127.0.0.1"]
+    [127.0.0.1] executing command
+    command finished in 294ms
+  * executing `deploy:app_deploy'
+APP DEPLOY 
 
-connection failed for: localhost (Errno::ENOTTY: Inappropriate ioctl for device)
-Build step 'Execute shell' marked build as failure
-Finished: FAILURE
+ ** transaction: commit
+Finished: SUCCESS

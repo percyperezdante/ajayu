@@ -43,8 +43,19 @@ chkconfig jenkins on
 
 service jenkins restart
 sleep 5
+
+#####################################
+# Adjusting jenkins user to work with capistrano
 # For some unknown reason a second restart is needed.
+# We are trying to do both tasks in once.
 
 service jenkins stop
+
+sudo usermod -d /app/jenkins -s /bin/bash  jenkins
+cp -r /tmp/jenkins/sshJenkins /app/jenkins/.ssh
+chmod 700 /app/jenkins/.ssh
+chmod 600 /app/jenkins/.ssh/id_rsa
+chown -R jenkins: /app/jenkins/.ssh
+
 service jenkins start
 
