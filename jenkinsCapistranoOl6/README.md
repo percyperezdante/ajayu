@@ -174,7 +174,7 @@ You also can use an already created job in the dashboard, called `cap_rollback_o
 
 ```bash
 echo '''
-server "172.10.11.4", :all, {:group => 1}
+server "127.0.0.1", :all, {:group => 1}
 ''' > servers.cap
 ```
 
@@ -246,26 +246,26 @@ You can run debug mode as:
 Started by user unknown or anonymous
 Running as SYSTEM
 Building in workspace /app/jenkins/jobs/examples/jobs/cap_rollback_on_transactions/workspace
-[workspace] $ /bin/sh -xe /tmp/jenkins8155165778728912009.sh
+[workspace] $ /bin/sh -xe /tmp/jenkins171893622896159376.sh
 + set +x
-[workspace] $ /bin/sh -xe /tmp/jenkins87502960719498073.sh
+[workspace] $ /bin/sh -xe /tmp/jenkins8265841782960213732.sh
 + set +x
-[workspace] $ /bin/sh -xe /tmp/jenkins7686715956820623815.sh
+[workspace] $ /bin/sh -xe /tmp/jenkins6283116836644112696.sh
 + cap -f deploy.cap deploy
   * executing `deploy'
  ** transaction: start
   * executing `deploy:list_packages'
-LIST PACKAGES
+LIST PACKAGES 
 
   * executing `deploy:check_prereqs'
-CHECK PREREQS
+CHECK PREREQS 
 
-  * executing "echo 123 > test"
-    servers: ["172.10.11.4"]
-    [172.10.11.4] executing command
-    command finished in 164ms
+  * executing "echo test > test"
+    servers: ["127.0.0.1"]
+    [127.0.0.1] executing command
+    command finished in 278ms
   * executing `deploy:app_deploy'
-APP DEPLOY
+APP DEPLOY 
 
  ** transaction: commit
 Finished: SUCCESS
