@@ -40,7 +40,16 @@ chown -R jenkins: /app/jenkins
 usermod --home /app/jenkins jenkins
 usermod -s /bin/bash jenkins
 
+#####################################
+# Adjusting jenkins user to work with capistrano
 service jenkins stop
+
+sudo usermod -d /app/jenkins -s /bin/bash  jenkins
+cp -r /tmp/jenkins/sshJenkins /app/jenkins/.ssh
+chmod 700 /app/jenkins/.ssh
+chmod 600 /app/jenkins/.ssh/id_rsa
+chown -R jenkins: /app/jenkins/.ssh
+
 service jenkins start
 
 

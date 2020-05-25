@@ -45,6 +45,16 @@ cap -V
 
 ln -s /usr/local/rvm/gems/ruby-2.5.7/wrappers/cap /usr/bin/cap
 
+
+#############################
+# Adjust deploy user settings
+sudo useradd -m -b /home deploy
+sudo echo "deploy:123" | chpasswd
+cp -r /tmp/jenkins/sshDeploy /home/deploy/.ssh
+chmod 700 /home/deploy/.ssh
+chown -R deploy: /home/deploy/.ssh
+
+
 #############################
 # Reference
 # https://tecadmin.net/install-ruby-latest-stable-centos/
