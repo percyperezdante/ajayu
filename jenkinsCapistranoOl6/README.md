@@ -272,6 +272,16 @@ Finished: SUCCESS
 
 ```
 
+NOTE:
+Capistrano reads from .ssh/config to identify remote host to deploy artifacts. 
+Double check that your config file contains the following parameters:
+
+```bash
+Host 127.0.0.1
+  Hostname localhost
+  User deploy
+```
+
 
 # Test artefacts of the image with Kitchen.
 Todo
@@ -285,4 +295,5 @@ Here some of most relevant link used to compose this template.
 - [How to install Ruby and capistrano](https://gist.github.com/Halleck45/9645694)
 - [Jenkins package repository](https://pkg.jenkins.io/redhat-stable/)
 - [Capistrano - ruby download](https://rubygems.org/gems/capistrano/versions/2.15.9)
-
+- [Capistrano 2 docs](https://github.com/capistrano/capistrano-2.x-docs/)
+- [Capistrano authentication](https://capistranorb.com/documentation/getting-started/authentication-and-authorisation/)
