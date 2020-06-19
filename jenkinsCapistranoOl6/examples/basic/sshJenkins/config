@@ -1,4 +1,6 @@
 Host 172.10.11.4
   Hostname victim
   User deploy
-
+Host 127.0.0.1
+  Hostname jenkinscapistrano
+  User deploy

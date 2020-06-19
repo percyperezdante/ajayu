@@ -1,7 +1,7 @@
 Vagrant.configure("2") do |config|
   config.vm.define :jenkinscapistrano do |jc|
       jc.vm.box = "percyperezd/JenkinsCapistranoV2"
-      jc.vm.box_version = "0.0.2"
+      jc.vm.box_version = "0.2.1"
       jc.vm.hostname = "jenkinscapistrano"
       jc.vm.network :private_network, ip: "172.10.11.10"
       jc.vm.network "forwarded_port", guest: 8080, host: 8080
